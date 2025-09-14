@@ -37,11 +37,14 @@ export default function Home() {
       <HeroCarousel setShowSecondHeroText={setShowSecondHeroText} />
 
       {showSecondHeroText && (
-        <div className="w-screen h-screen px-4 md:w-[50dvw] flex items-center justify-self-end relative">
+        <section
+          aria-labelledby="hero-heading"
+          className="w-screen h-screen px-4 md:w-[50dvw] flex items-center justify-self-end relative"
+        >
           <div ref={secondHeroTextRef}>
             <HeroText title="Eros augue curabitur eu rutrum neque congue" />
           </div>
-        </div>
+        </section>
       )}
     </main>
   );

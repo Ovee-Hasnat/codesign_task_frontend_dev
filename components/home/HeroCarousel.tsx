@@ -43,13 +43,13 @@ export default function HeroCarousel({
     return () => el.removeEventListener("click", handleClick);
   }, [totalSteps]);
 
-  // Width multipliers based on for Responsiveness
+  // Width multipliers based on devices for Responsiveness
   const widthMultiplier =
     device === "desktop" ? 0.7 : device === "tablet" ? 0.8 : 1.0;
   const slideWidth =
     device === "desktop" ? "75vw" : device === "tablet" ? "80vw" : "100vw";
 
-  // Compute offset per step
+  // Computing offset per step
   const getOffset = useCallback(
     (step: number, containerWidth: number) => {
       switch (step) {
@@ -128,11 +128,12 @@ export default function HeroCarousel({
 
   return (
     <section
+      aria-label="Hero carousel"
       ref={containerRef}
       className="h-screen w-screen overflow-hidden flex absolute select-none -z-10"
     >
       <div ref={trackRef} className="flex h-full gap-5">
-        {/* Hero text (fixed left) */}
+        {/* Hero text */}
         <div className="flex-shrink-0 w-screen md:w-[50dvw] h-full">
           <HeroText title="Eros augue curabitur rutrum ibrium" />
         </div>
