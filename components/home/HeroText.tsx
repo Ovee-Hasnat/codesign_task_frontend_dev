@@ -2,7 +2,7 @@ import React from "react";
 
 function HeroText() {
   return (
-    <div className="w-[674px] mt-[200px]">
+    <div className="w-[674px] mt-[200px] mx-auto">
       <h1 className="text-[64px] font-medium leading-[120%]">
         Eros augue curabitur rutrum ibrium
       </h1>
@@ -10,7 +10,7 @@ function HeroText() {
         Connection reesizing strikethrough frame project layer opacity. Rotate
         flatten align link invite plugin. Clip asset ellipse flatten hand align
         editor flatten. Device star union frame text vector. Select rectangle
-        style select scrolling bold boolean.{" "}
+        style select scrolling bold boolean.
       </p>
     </div>
   );
