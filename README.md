@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Front-end Developer Task - COdesign
 
-## Getting Started
+This front-end application is built with **Next.js**, **Tailwind CSS**, and **GSAP** animations.  
+This project implements a hero section carousel with smooth transitions and theme switching.
 
-First, run the development server:
+---
 
-```bash
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) (App Router, Server Components)
+- [React](https://react.dev/) (with Context API for theme switching)
+- [Tailwind CSS](https://tailwindcss.com/) (utility-first styling, dark mode support)
+- [GSAP](https://greensock.com/gsap/) (60fps animations and carousel transitions)
+- [TypeScript](https://www.typescriptlang.org/) (type safety)
+
+---
+
+## Running Locally
+
+Install dependencies:
+npm install
+
+Run the development server:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build the project:
+npm run build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Then open http://localhost:3000 in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
+🔗 Live Link: https://your-app-url.com
 
-To learn more about Next.js, take a look at the following resources:
+## Assumptions & Trade-offs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- The carousel transitions are click-driven (instead of auto-play) for simplicity.
+- Fixed breakpoints were used for desktop / tablet / mobile responsiveness.
+- GSAP was chosen for animation → smooth 60fps transitions but adds extra bundle weight.
+- Lazy-loading GSAP was applied in places to reduce initial bundle size.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Performance Notes
 
-## Deploy on Vercel
+- Responsive images (next/image) to optimize image delivery.
+- Tailwind’s JIT mode ensures only used classes are shipped.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Accessibility Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Used semantic HTML elements (<header>, <section>, <nav>).
+- Added ARIA labels for carousel and navigation buttons.
+- Ensured color contrast adapts to dark/light mode.
+- Avoided overuse of ARIA (kept it meaningful and minimal).
+
+## If I Had More Time
+
+- Improve Responsiveness.
+- Add keyboard & swipe navigation support to the carousel.
+- Improve animation configuration.
+- Add unit & integration tests.
+- Explore server-side rendering optimizations with Next.js for GSAP-heavy sections.

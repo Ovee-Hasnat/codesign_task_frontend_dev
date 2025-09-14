@@ -152,6 +152,7 @@ export default function HeroCarousel({
               width={1800}
               height={1440}
               className="w-full h-full object-cover"
+              priority={i === 0}
             />
           </div>
         ))}
