@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import HeroText from "./HeroText";
+import { useDeviceType } from "@/hooks/useDeviceTypes";
 
 interface Slide {
   src: string;
@@ -19,66 +20,123 @@ const slides: Slide[] = [
 export default function HeroCarousel() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [current, setCurrent] = useState(0);
+  const lastSlideRef = useRef<HTMLDivElement>(null);
+
+  const [step, setStep] = useState(0);
+  const totalSteps = slides.length + 2; // 4 slides + 2 extra states
+  const device = useDeviceType();
 
   // Click handler
   useEffect(() => {
-    const el = containerRef.current;
-
+    const el = document.getElementsByTagName("main")[0];
     if (!el) return;
 
     const handleClick = () => {
-      setCurrent((prev) => (prev + 1) % slides.length);
+      setStep((prev) => (prev + 1) % totalSteps);
     };
 
-    // el.addEventListener("click", handleClick);
-    document.body.addEventListener("click", handleClick);
+    el.addEventListener("click", handleClick);
     return () => el.removeEventListener("click", handleClick);
-  }, []);
+  }, [totalSteps]);
 
-  // Compute offset per slide
-  const getOffset = (index: number, containerWidth: number) => {
-    switch (index) {
-      case 0:
-        return 0;
-      case 1:
-        return -(containerWidth * 0.7 * 0.55);
-      case 2:
-        return -(containerWidth * 0.7 * 1.6);
-      case 3:
-        return -(containerWidth * 0.7 * 3.55);
-      default:
-        return 0;
-    }
-  };
+  // Width multipliers based on for Responsiveness
+  const widthMultiplier =
+    device === "desktop" ? 0.7 : device === "tablet" ? 0.8 : 1.0;
+  const slideWidth =
+    device === "desktop" ? "75vw" : device === "tablet" ? "80vw" : "100vw";
 
-  // Animate track
+  // Compute offset per step
+  const getOffset = useCallback(
+    (step: number, containerWidth: number) => {
+      switch (step) {
+        case 0:
+          return 0;
+        case 1:
+          return -(containerWidth * widthMultiplier * 0.55);
+        case 2:
+          return -(containerWidth * widthMultiplier * 1.6);
+        case 3:
+          return -(containerWidth * widthMultiplier * 3.6);
+        default:
+          return -(containerWidth * widthMultiplier * 4);
+      }
+    },
+    [widthMultiplier]
+  );
+
+  // Animate track + last slide
   useEffect(() => {
     if (!trackRef.current || !containerRef.current) return;
     const containerWidth = containerRef.current.offsetWidth;
-    const offset = getOffset(current, containerWidth);
 
-    gsap.to(trackRef.current, {
-      x: offset,
-      duration: 1.2,
-      ease: "expo.inOut",
-    });
-  }, [current]);
+    if (step < slides.length) {
+      const offset = getOffset(step, containerWidth);
+      gsap.to(trackRef.current, {
+        x: offset,
+        duration: 1.5,
+        ease: "power4.inOut",
+      });
+
+      // reset last slide styling when coming back
+      if (lastSlideRef.current) {
+        gsap.to(lastSlideRef.current, {
+          width: slideWidth,
+          height: "100vh",
+          y: 0,
+          duration: 1.5,
+        });
+      }
+    }
+
+    // Step for last image full screen
+    if (step === slides.length && lastSlideRef.current) {
+      const offset = getOffset(step, containerWidth);
+      gsap.to(trackRef.current, {
+        x: offset,
+        duration: 1.5,
+        ease: "power4.inOut",
+      });
+      gsap.to(lastSlideRef.current, {
+        width: "105vw",
+        height: "100vh",
+        x: 0,
+        y: 0,
+        duration: 1.5,
+        ease: "power4.inOut",
+      });
+    }
+
+    // Step for last image lifting up
+    if (step === slides.length + 1 && lastSlideRef.current) {
+      gsap.to(lastSlideRef.current, {
+        width: "110vw",
+        height: device === "mobile" ? "60vh" : "90vh",
+        y: -containerRef.current!.offsetHeight / (device === "mobile" ? 6 : 2),
+        duration: 1.5,
+        ease: "power4.inOut",
+      });
+    }
+  }, [step, device, getOffset, slideWidth]);
 
   return (
     <section
       ref={containerRef}
-      className="h-screen w-screen overflow-hidden flex relative -z-10 select-none"
+      className="h-screen w-screen overflow-hidden flex relative select-none -z-10"
     >
       <div ref={trackRef} className="flex h-full gap-5">
         {/* Hero text (fixed left) */}
-        <div className="flex-shrink-0 w-[50dvw] h-full">
+        <div className="flex-shrink-0 w-screen px-4 md:w-[50dvw] h-full">
           <HeroText />
         </div>
 
         {/* Carousel track */}
         {slides.map((slide, i) => (
-          <div key={i} className="flex-shrink-0 w-[75dvw] h-full">
+          <div
+            key={i}
+            ref={i === slides.length - 1 ? lastSlideRef : null}
+            className="flex-shrink-0 h-full"
+            style={{ width: slideWidth }}
+          >
             <Image
               src={slide.src}
               alt={`slide-${i}`}

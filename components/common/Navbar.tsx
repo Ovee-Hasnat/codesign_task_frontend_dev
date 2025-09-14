@@ -7,14 +7,14 @@ import menuIcon from "../../public/assets/menu_icon.png";
 
 function Navbar() {
   return (
-    <nav className="absolute top-0 w-full mt-20">
+    <nav className="absolute top-0 w-full mt-10 2xl:mt-20">
       <div className="w-11/12 mx-auto flex items-center justify-between">
         <Image
           src={logo}
           alt="logo"
           width={143}
           height={34}
-          className="mix-blend-difference"
+          className="w-20 2xl:w-36 mix-blend-difference"
         />
         <span className="flex items-center gap-10">
           <ThemeToggle />
@@ -23,7 +23,7 @@ function Navbar() {
             alt="logo"
             width={50}
             height={13}
-            className="mix-blend-difference"
+            className="w-10 2xl:w-12 mix-blend-difference"
           />
         </span>
       </div>

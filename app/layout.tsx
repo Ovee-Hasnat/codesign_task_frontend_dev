@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased relative`}>
+      <body className={`antialiased relative h-screen font-sans`}>
         <ThemeProvider>
           <Navbar />
           {children}
