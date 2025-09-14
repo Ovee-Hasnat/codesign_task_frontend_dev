@@ -1,3 +1,13 @@
+# Acknowledgement
+
+This task served as a valuable **“Learn and Develop”** opportunity for me. As I was not very familiar with GSAP prior to starting, I had to invest time in learning and implementing front-end animations. Throughout the task, I made every effort to follow best practices and align the work with the requirements.
+
+I admit that there is significant room for improvement, particularly in creating fully responsive animations, a skill I am eager to further develop with more practice. Working on this task has been a great learning experience, allowing me to identify areas for growth and enhance my skills in front-end animation development.
+
+I sincerely appreciate the opportunity for this assesment and thank you once again.
+
+---
+
 # Front-end Developer Task - COdesign
 
 This front-end application is built with **Next.js**, **Tailwind CSS**, and **GSAP** animations.  
@@ -18,19 +28,22 @@ This project implements a hero section carousel with smooth transitions and them
 ## Running Locally
 
 Install dependencies:
-npm install
+
+- npm install
 
 Run the development server:
-npm run dev
+
+- npm run dev
 
 Build the project:
-npm run build
 
-# Then open http://localhost:3000 in your browser.
+- npm run build
+
+### Then open http://localhost:3000 in your browser.
 
 ## Deployment
 
-🔗 Live Link: https://your-app-url.com
+🔗 Live Link: codesign-task-frontend-dev.vercel.app
 
 ## Assumptions & Trade-offs
 
@@ -46,10 +59,10 @@ npm run build
 
 ## Accessibility Notes
 
-- Used semantic HTML elements (<header>, <section>, <nav>).
-- Added ARIA labels for carousel and navigation buttons.
+- Used semantic HTML elements.
+- Added ARIA labels.
 - Ensured color contrast adapts to dark/light mode.
-- Avoided overuse of ARIA (kept it meaningful and minimal).
+- Avoided overuse of ARIA.
 
 ## If I Had More Time
 
