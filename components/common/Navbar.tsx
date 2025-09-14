@@ -14,7 +14,7 @@ function Navbar() {
           alt="logo"
           width={143}
           height={34}
-          className="w-20 2xl:w-36 mix-blend-difference"
+          className="w-20 2xl:w-32 mix-blend-difference"
         />
         <span className="flex items-center gap-10">
           <ThemeToggle />

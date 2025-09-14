@@ -17,7 +17,11 @@ const slides: Slide[] = [
   { src: "/assets/four.webp" },
 ];
 
-export default function HeroCarousel() {
+export default function HeroCarousel({
+  setShowSecondHeroText,
+}: {
+  setShowSecondHeroText: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const lastSlideRef = useRef<HTMLDivElement>(null);
@@ -85,6 +89,8 @@ export default function HeroCarousel() {
           y: 0,
           duration: 1.5,
         });
+
+        setShowSecondHeroText(false);
       }
     }
 
@@ -115,18 +121,20 @@ export default function HeroCarousel() {
         duration: 1.5,
         ease: "power4.inOut",
       });
+
+      setShowSecondHeroText(true);
     }
-  }, [step, device, getOffset, slideWidth]);
+  }, [step, device, getOffset, slideWidth, setShowSecondHeroText]);
 
   return (
     <section
       ref={containerRef}
-      className="h-screen w-screen overflow-hidden flex relative select-none -z-10"
+      className="h-screen w-screen overflow-hidden flex absolute select-none -z-10"
     >
       <div ref={trackRef} className="flex h-full gap-5">
         {/* Hero text (fixed left) */}
-        <div className="flex-shrink-0 w-screen px-4 md:w-[50dvw] h-full">
-          <HeroText />
+        <div className="flex-shrink-0 w-screen md:w-[50dvw] h-full">
+          <HeroText title="Eros augue curabitur rutrum ibrium" />
         </div>
 
         {/* Carousel track */}
