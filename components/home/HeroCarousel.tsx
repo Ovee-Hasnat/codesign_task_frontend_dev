@@ -11,10 +11,10 @@ interface Slide {
 }
 
 const slides: Slide[] = [
-  { src: "/assets/one.png" },
-  { src: "/assets/two.png" },
-  { src: "/assets/three.png" },
-  { src: "/assets/four.png" },
+  { src: "/assets/one.webp" },
+  { src: "/assets/two.webp" },
+  { src: "/assets/three.webp" },
+  { src: "/assets/four.webp" },
 ];
 
 export default function HeroCarousel() {
